@@ -5,12 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.SessionState;
 using System.Web.UI.WebControls;
+using WebApp.DataBase;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        usersEntities db = new usersEntities();
+
         // GET: Home
         public ActionResult Index()
         {
@@ -25,7 +28,11 @@ namespace WebApp.Controllers
         {
             if(ModelState.IsValid)
             {
-                
+                var users = db.Users;
+
+                if(users.Any())
+               
+                return RedirectToAction("Index");
             }
             return View();
         }
