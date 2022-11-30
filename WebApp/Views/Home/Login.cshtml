@@ -1,12 +1,32 @@
-﻿
+﻿@model WebApp.Models.Login_Model
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>UserLogin</h2>
-@using (Html.BeginForm("Login","Login", FormMethod.Post))
-{ 
-    @Html
+@using (Html.BeginForm("LoginProcess", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    if (ViewBag.Message != null)
+    {
+        <div style="border:1px solid red">
+            @ViewBag.Message
+        </div>
+    }
+    <table>
+        <tr>
+            <td>@Html.LabelFor(a => a.Username)</td>
+            <td>@Html.TextBoxFor(a => a.Username)</td>
+            <td>@Html.LabelFor(a => a.Password)</td>
+            <td>@Html.TextBoxFor(a => a.Password)</td>
+
+        </tr>
+        <tr>
+            <td><button type="submit" class="btn btn-success">Log In</button></td>
+        </tr>
+    </table>
 }
 
