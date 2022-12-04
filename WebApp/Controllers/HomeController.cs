@@ -34,6 +34,19 @@ namespace WebApp.Controllers
             }
             return RedirectToAction("Login");
         }
-        
+        [HttpPost]
+        public JsonResult GetallDetails()
+        {
+            List<User_DetailsModel> userdata = new List<User_DetailsModel>();
+            var dat = db.UserDetails.ToList();
+            userdata = dat.Select(k => new User_DetailsModel
+            {
+                name = k.User_Name,
+                dob = k.User_DateOfBirth,
+                Job = k.User_Job,
+                place = k.User_Place
+            }).ToList();
+            return Json(userdata, JsonRequestBehavior.DenyGet);
+        }
     }
 }

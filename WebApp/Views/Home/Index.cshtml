@@ -1,15 +1,46 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 <nav class="w3-bar w3-black">
     <a href="#home" class="w3-button w3-bar-item">Home</a>
 </nav>
 
+<table id="usertable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Dob</th>
+            <th>Place</th>
+            <th>Job</th>
+        </tr>
+    </thead>
+</table>
 
 
 
+<script>
+    $(document).ready(function () {
+        $('#usertable').DataTable({
+            "filter": true,
+            "ajax": {
+                "url": "/Home/GetallDetails/",
+                "dataSrc": "",
+                'method': "POST"
+            },
+            "columns": [
+                { "data": "name" },
+                { "data": "dob" },
+                { "data": "Job" },
+                { "data": "place" }
+                ],
+            });
+    });
 
+</script>
 
 
