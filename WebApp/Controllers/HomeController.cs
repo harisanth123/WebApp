@@ -5,14 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.SessionState;
 using System.Web.UI.WebControls;
-using WebApp.DataBase;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        usersEntities db = new usersEntities();
+        private Database.usersEntities db = new Database.usersEntities();
 
         // GET: Home
         public ActionResult Index()
@@ -28,13 +27,12 @@ namespace WebApp.Controllers
         {
             if(ModelState.IsValid)
             {
-                var users = db.Users;
-
-                if(users.Any())
-               
-                return RedirectToAction("Index");
+                if (db.Users.Any(k => k.User_Name == data.Username && k.User_PassWord == data.Password))
+                    {
+                    return RedirectToAction("Index");
+                    }
             }
-            return View();
+            return RedirectToAction("Login");
         }
         
     }
